@@ -12,14 +12,10 @@ def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {"User-Agent": "Mozilla/5.0"}  # avoid Too Many Requests error
 
-    try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-        if response.status_code == 200:
-            data = response.json()
-            return data['data']['subscribers']
-        else:
-            return 0
-    except requests.RequestException:
-        # In case of any request exception, return 0
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']['subscribers']
+    else:
         return 0
